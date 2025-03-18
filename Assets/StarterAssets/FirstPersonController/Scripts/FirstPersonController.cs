@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -13,9 +14,9 @@ namespace StarterAssets
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 4.0f;
+		public float MoveSpeed = 1.5f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6.0f;
+		public float SprintSpeed = 1.5f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
@@ -63,6 +64,9 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+
+		//fix
+		float maxClimbHeight = 0f;
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -122,7 +126,21 @@ namespace StarterAssets
 			CameraRotation();
 		}
 
-		private void GroundedCheck()
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+			if (hit.collider.CompareTag("NoClimbBed"))
+			{
+				float heightDifference = hit.point.y - transform.position.y;
+				if(heightDifference > maxClimbHeight)
+				{
+					//day player xuong
+                    //_controller.Move(Vector3.down * Time.deltaTime * 2f);
+					//chan velocity
+                    _verticalVelocity = Mathf.Min(_verticalVelocity, 0f);
+                }
+			}
+        }
+        private void GroundedCheck()
 		{
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
