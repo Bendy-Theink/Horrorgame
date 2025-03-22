@@ -12,8 +12,6 @@ namespace KeySystem
         private KeyItemController raycasteObject;
         [SerializeField] private KeyCode openDoorKey = KeyCode.E;
 
-        [SerializeField] private Image crosshair = null;
-        private bool isCrosshairActive;
         private bool doOne;
 
         private string interactableTag = "Interactable";
@@ -31,37 +29,15 @@ namespace KeySystem
                     if (!doOne)
                     {
                         raycasteObject = hit.collider.GetComponent<KeyItemController>();
-                        CrosshairChange(true);
                     }
 
-                    isCrosshairActive = true;
                     doOne = true;
 
-                    if (Input.GetKeyDown(openDoorKey))
+                    if (Input.GetKeyDown(openDoorKey) && raycasteObject != null)
                     {
                         raycasteObject.ObjectInteration();
                     }
                 }
-            }
-            else
-            {
-                if (isCrosshairActive)
-                {
-                    crosshair.enabled = false;
-                    isCrosshairActive = false;
-                }
-            }
-        }
-        void CrosshairChange(bool on)
-        {
-            if (on && !doOne)
-            {
-                crosshair.color = Color.red;
-            }
-            else
-            {
-                crosshair.color = Color.white;
-                isCrosshairActive = false;
             }
         }
     }
