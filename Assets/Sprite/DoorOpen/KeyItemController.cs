@@ -23,7 +23,7 @@ namespace KeySystem
         {
             if (redDoor)
             {
-                //doorObject.PlayAnimation;
+                doorObject.PlayAnimation();
             }
             else if (redKey)
             {
