@@ -1,5 +1,8 @@
+﻿using TMPro;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class RaycastManager : MonoBehaviour
 {
@@ -9,7 +12,13 @@ public class RaycastManager : MonoBehaviour
 
     //public LayerMask layerMask;//lop chi dinh co the nhat
     public InventoryManager inventoryManager;// Them refence InventoryManager de quan ly
+    public GameObject playerFlashlight; //den pin tren tay nguoi choi
 
+    public GameObject interactText; //Tham chieu den game object 3DInteracText
+    private void Start()
+    {
+        interactText.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -42,6 +51,25 @@ public class RaycastManager : MonoBehaviour
                     outline.OutlineColor = Color.white;
                     outline.OutlineWidth = 5f;
                 }
+
+                //hien thi text
+                interactText.SetActive(true);
+                interactText.transform.position = highLight.position + Vector3.up * 0.5f; //dieu chinh offset
+                interactText.transform.LookAt(Camera.main.transform);
+                interactText.transform.rotation = 
+                                Quaternion.LookRotation(interactText.transform.position - Camera.main.transform.position);
+
+                //Tuy chinh noi dung text
+                TextMeshProUGUI textComponent = interactText.GetComponent<TextMeshProUGUI>();
+                ItemType item = highLight.GetComponent<ItemType>();
+                if(item != null && item.itemType == ItemType.Type.Flashlight)
+                {
+                    textComponent.text = "Nhấn E để nhặt đèn pin";
+                }
+                else
+                {
+                    textComponent.text = "Nhấn E để nhặt";
+                }
             }
             else
             {
@@ -54,14 +82,30 @@ public class RaycastManager : MonoBehaviour
             //kiem tra vat co the nhat
             if (highLight != null && highLight.CompareTag("Lighted") && highLight != aim)
             {
-                //them vat vao inventory
-                if(inventoryManager != null)
+                //kiem tra xem vat pham co phai den pin khong
+                ItemType item = highLight.GetComponent<ItemType>();
+                if (item != null && item.itemType == ItemType.Type.Flashlight)
                 {
-                    inventoryManager.AddItem(highLight.gameObject);
+                    if (playerFlashlight != null)
+                    {
+                        playerFlashlight.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Khong co den pin");
+                    }
                 }
                 else
                 {
-                    Debug.Log("Khong co InventoryManager");
+                    //them vat vao inventory
+                    if (inventoryManager != null)
+                    {
+                        inventoryManager.AddItem(highLight.gameObject);
+                    }
+                    else
+                    {
+                        Debug.Log("Khong co InventoryManager");
+                    }
                 }
 
                 Destroy(highLight.gameObject);
