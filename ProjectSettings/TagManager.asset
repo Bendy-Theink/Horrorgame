@@ -7,7 +7,7 @@ TagManager:
   - CinemachineTarget
   - NoClimbBed
   - Lighted
-  - Interactable
+  - Door
   layers:
   - Default
   - TransparentFX

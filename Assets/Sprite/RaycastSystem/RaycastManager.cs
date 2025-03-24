@@ -84,9 +84,22 @@ public class RaycastManager : MonoBehaviour
                 Debug.Log("Khong co outline");
             }
         }
-        //nhat do lkhi nhan E
+        //nhat do khi nhan E
         if (Input.GetKeyDown(KeyCode.E))
         {
+            //kiem tra cua co the mo
+            if (highLight != null && highLight.CompareTag("Door") && highLight != aim)
+            {
+                DoorController door = hit.collider.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.TryOpenDoor();
+                }
+            }
+            else
+            {
+                Debug.Log("Khong co cua de mo");
+            }
             //kiem tra vat co the nhat
             if (highLight != null && highLight.CompareTag("Lighted") && highLight != aim)
             {
