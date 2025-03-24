@@ -1,11 +1,13 @@
 using KeySystem;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
     [SerializeField] private Animator _hanleDoor;
     [SerializeField] private Animator _openDoor;
+
 
     public bool isLooked = true; //cua bi khoa mac dinh
 
