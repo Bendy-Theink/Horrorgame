@@ -15,16 +15,14 @@ public class RaycastManager : MonoBehaviour
     public GameObject playerFlashlight; //den pin tren tay nguoi choi
 
     public GameObject interactText; //Tham chieu den game object 3DInteracText
-    private void Start()
-    {
-        interactText.SetActive(false);
-    }
+
     // Update is called once per frame
     void Update()
     {
         //Tat outline truoc do (Kiem tra outline co ton tai khong)
         if(highLight != null)
         {
+            interactText.SetActive(false);
             Outline previousOutline = highLight.GetComponent<Outline>();
             if(previousOutline != null) 
             {
@@ -54,7 +52,7 @@ public class RaycastManager : MonoBehaviour
 
                 //hien thi text
                 interactText.SetActive(true);
-                interactText.transform.position = highLight.position + Vector3.up * 0.5f; //dieu chinh offset
+                interactText.transform.position = highLight.position + Vector3.up * 0.05f; //dieu chinh offset
                 interactText.transform.LookAt(Camera.main.transform);
                 interactText.transform.rotation = 
                                 Quaternion.LookRotation(interactText.transform.position - Camera.main.transform.position);
