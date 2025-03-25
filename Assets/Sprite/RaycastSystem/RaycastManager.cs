@@ -21,8 +21,6 @@ public class RaycastManager : MonoBehaviour
     public GameObject interactText; //Tham chieu den game object 3DInteracText
     public KeyInventory keyInventory; //Tham chieu den KeyInventory
 
-    [SerializeField] private Animator _treasure;//hom xac
-
     // Update is called once per frame
     void Update()
     {
@@ -96,7 +94,7 @@ public class RaycastManager : MonoBehaviour
             }
             else
             {
-                //Debug.Log("Khong co outline");
+                Debug.Log("Khong co outline");
             }
         }
         //nhat do khi nhan E
@@ -110,13 +108,6 @@ public class RaycastManager : MonoBehaviour
                     if(fridge != null)
                     {
                         fridge.ToggleFridge();
-                    }
-                }
-                if(highLight != null)
-                {
-                    if (highLight.CompareTag("Treasure"))
-                    {
-                        _treasure.SetTrigger("Open");
                     }
                 }
             }
@@ -145,21 +136,7 @@ public class RaycastManager : MonoBehaviour
         {
             Debug.Log("Khong co ghi chu");
         }
-        //Hop nhac
-        if(hitInfor.collider.CompareTag("Box"))
-        {
-            var boxMusic = hitInfor.collider.GetComponent<MusicBoxManager>();
-            if(boxMusic != null)
-            {
-                boxMusic?.TryOpenMusicBox();
-            }
-        }
-        else
-        {
-            Debug.Log("Khong mo duoc");
-        }
-        //mo cua
-        if (hitInfor.collider.CompareTag("Door"))
+        if(hitInfor.collider.CompareTag("Door"))
         {
             var door = hitInfor.collider.GetComponent<DoorController>();
             if (door != null)
