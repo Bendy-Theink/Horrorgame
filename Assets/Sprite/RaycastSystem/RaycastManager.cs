@@ -77,6 +77,18 @@ public class RaycastManager : MonoBehaviour
                     _ => "Nhấn E để nhặt"
                 };
             }
+            else if (highLight.CompareTag("Note"))
+            {
+                interactText.SetActive(true);
+                interactText.transform.position = highLight.position + Vector3.up * 0.05f;
+                interactText.transform.LookAt(Camera.main.transform);
+                interactText.transform.rotation =
+                    Quaternion.LookRotation(interactText.transform.position - Camera.main.transform.position);
+
+                TextMeshProUGUI textComponent = interactText.GetComponent<TextMeshProUGUI>();
+                textComponent.color = Color.white;
+                textComponent.text = "E: Xem xét";
+            }
             else
             {
                 Debug.Log("Khong co outline");
@@ -85,6 +97,17 @@ public class RaycastManager : MonoBehaviour
         //nhat do khi nhan E
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if(highLight != null)
+            {
+                if (highLight.CompareTag("Fridge"))
+                {
+                    FridgeController fridge = highLight.GetComponent<FridgeController>();
+                    if(fridge != null)
+                    {
+                        fridge.ToggleFridge();
+                    }
+                }
+            }
             HandleInteraction();
         }
         if (Input.GetKeyDown(KeyCode.R) && _note.activeSelf)
