@@ -5,6 +5,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class RaycastManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class RaycastManager : MonoBehaviour
     //public LayerMask layerMask;//lop chi dinh co the nhat
     public InventoryManager inventoryManager;// Them refence InventoryManager de quan ly
     public GameObject playerFlashlight; //den pin tren tay nguoi choi
+    [SerializeField] private GameObject _note; //ghi chu
 
     public GameObject interactText; //Tham chieu den game object 3DInteracText
     public KeyInventory keyInventory; //Tham chieu den KeyInventory
@@ -52,32 +54,28 @@ public class RaycastManager : MonoBehaviour
                     outline.OutlineColor = Color.white;
                     outline.OutlineWidth = 5f;
                 }
-
                 //hien thi text
                 interactText.SetActive(true);
                 interactText.transform.position = highLight.position + Vector3.up * 0.05f; //dieu chinh offset
                 interactText.transform.LookAt(Camera.main.transform);
                 interactText.transform.rotation =
-                                Quaternion.LookRotation(interactText.transform.position 
-                                - 
+                                Quaternion.LookRotation(interactText.transform.position
+                                -
                                 Camera.main.transform.position);
 
                 //Tuy chinh noi dung text
                 TextMeshProUGUI textComponent = interactText.GetComponent<TextMeshProUGUI>();
                 ItemType item = highLight.GetComponent<ItemType>();
                 textComponent.color = Color.white;
-                if (item != null && item.itemType == ItemType.Type.Flashlight)
+
+                textComponent.text = item switch
                 {
-                    textComponent.text = "Nhấn E để nhặt đèn pin";
-                }
-                else if(item != null && item.itemType == ItemType.Type.Key)
-                {
-                    textComponent.text = "Nhấn E để nhặt chìa khóa";
-                }
-                else
-                {
-                    textComponent.text = "Nhấn E để nhặt";
-                }
+                    { itemType: ItemType.Type.Flashlight } => "Nhấn E để nhặt đèn pin",
+                    {
+                        itemType: ItemType.Type.Key
+                    } => "Nhấn E để nhặt chìa khóa",
+                    _ => "Nhấn E để nhặt"
+                };
             }
             else
             {
@@ -87,72 +85,73 @@ public class RaycastManager : MonoBehaviour
         //nhat do khi nhan E
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //kiem tra cua co the mo
-            if (highLight != null && highLight.CompareTag("Door") && highLight != aim)
+            HandleInteraction();
+        }
+        if (Input.GetKeyDown(KeyCode.R) && _note.activeSelf)
+        {
+            _note.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+    private void HandleInteraction()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        if (!Physics.Raycast(ray, out var hitInfor, 4f))
+        {
+            return;
+        }
+
+        if(hitInfor.collider.CompareTag("Note"))
+        {
+            _note.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Debug.Log("Khong co ghi chu");
+        }
+        if(hitInfor.collider.CompareTag("Door"))
+        {
+            var door = hitInfor.collider.GetComponent<DoorController>();
+            if (door != null)
             {
-                DoorController door = hit.collider.GetComponent<DoorController>();
-                if (door != null)
-                {
-                    door.TryOpenDoor();
-                }
+                door?.TryOpenDoor();
             }
-            else
-            {
-                Debug.Log("Khong co cua de mo");
-            }
-            //kiem tra vat co the nhat
-            if (highLight != null && highLight.CompareTag("Lighted") && highLight != aim)
-            {
-                //kiem tra xem vat pham co phai den pin khong hay chia khoa khong
-                ItemType item = highLight.GetComponent<ItemType>();
-                if (item != null)
-                {
-                    switch (item.itemType)
-                    {
-                        case ItemType.Type.Flashlight:
-
-
-                            if (playerFlashlight != null)
-                            {
-                                playerFlashlight.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.Log("Khong co den pin");
-                            }
-                            break;
-
-
-                        case ItemType.Type.Key:
-                            if (keyInventory != null)
-                            {
-                                keyInventory.hasRedKey = true;
-                            }
-                            else
-                            {
-                                Debug.Log("Khong co KeyInventory");
-                            }
-                            break;
-                        case ItemType.Type.Other:
-                            //them vat vao inventory
-                            if (inventoryManager != null)
-                            {
-                                inventoryManager.AddItem(highLight.gameObject);
-                            }
-                            else
-                            {
-                                Debug.Log("Khong co InventoryManager");
-                            }
-                            break;
-                    }
-                }
-                Destroy(highLight.gameObject);
-                highLight = null;
-            }
+        }
+        else
+        {
+            Debug.Log("Khong co cua de mo");
+        }
+        if(hitInfor.collider.CompareTag("Lighted"))
+        {
+            HandleItemPickup(hitInfor.collider.gameObject);
         }
         else
         {
             Debug.Log("Khong co gi de nhat");
         }
+    }
+    private void HandleItemPickup(GameObject obj)
+    {
+        var item = obj.GetComponent<ItemType>();
+        if(item == null)
+        {
+            return;
+        }
+        
+        switch (item.itemType)
+        {
+            case ItemType.Type.Flashlight:
+                playerFlashlight?.SetActive(true);
+                break;
+            case ItemType.Type.Key:
+                keyInventory.hasRedKey = true;
+                break;
+            case ItemType.Type.Other:
+                inventoryManager?.AddItem(obj);
+                break;
+        }
+
+        Destroy(obj);
     }
 }
