@@ -8,6 +8,8 @@ TagManager:
   - NoClimbBed
   - Lighted
   - Door
+  - Note
+  - Fridge
   layers:
   - Default
   - TransparentFX
