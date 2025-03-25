@@ -74,6 +74,9 @@ public class RaycastManager : MonoBehaviour
                     {
                         itemType: ItemType.Type.Key
                     } => "Nhấn E để nhặt chìa khóa",
+                    {
+                        itemType: ItemType.Type.HandleMusicBox
+                    } => "Nhấn E để nhặt tay quay nhạc",
                     _ => "Nhấn E để nhặt"
                 };
             }
@@ -166,6 +169,9 @@ public class RaycastManager : MonoBehaviour
         {
             case ItemType.Type.Flashlight:
                 playerFlashlight?.SetActive(true);
+                break;
+            case ItemType.Type.HandleMusicBox:
+                keyInventory.hasHanldeMusicBox = true;
                 break;
             case ItemType.Type.Key:
                 keyInventory.hasRedKey = true;
