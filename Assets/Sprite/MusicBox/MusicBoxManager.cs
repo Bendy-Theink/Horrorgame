@@ -7,6 +7,7 @@ public class MusicBoxManager : MonoBehaviour
 {
     [SerializeField] Animator _musicBox;
     [SerializeField] GameObject _handle;
+    [SerializeField] GameObject _key;
     public bool isLooked = true;
 
     public void TryOpenMusicBox()
@@ -18,8 +19,7 @@ public class MusicBoxManager : MonoBehaviour
             {
                 _handle.SetActive(true);
                 isLooked = false;
-                _musicBox.SetTrigger("Open");
-                _musicBox.SetTrigger("Handle");
+                StartCoroutine(OpenMusicBox());
                 Debug.Log("Music Box is opened");
             }
             else
@@ -28,12 +28,16 @@ public class MusicBoxManager : MonoBehaviour
             }
         }
     }
+    public void AppearKey()
+    {
+        _key.SetActive(true);
+    }
 
     private IEnumerator OpenMusicBox()
     {
+        _musicBox.SetTrigger("Handle");
         yield return new WaitForSeconds(3f);
         _musicBox.SetTrigger("Open");
-        _musicBox.SetTrigger("Handle");
         Debug.Log("Music Box is opened");
     }
 }
