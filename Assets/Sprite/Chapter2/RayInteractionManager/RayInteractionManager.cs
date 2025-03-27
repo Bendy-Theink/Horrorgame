@@ -1,4 +1,6 @@
+using KeySystem;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,23 +10,24 @@ public class RayInteractionManager : MonoBehaviour
     private RaycastHit hit;
     private Transform aim;
 
+    public KeyInventory keyInventory;
     [SerializeField] private GameObject _note;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(highLight != null)
+        if (highLight != null)
         {
             highLight = null;
         }
         Vector3 centerScreen = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray ray = Camera.main.ScreenPointToRay(centerScreen);
-        if(!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, 3f))
+        if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, 3f))
         {
             highLight = hit.transform;
             if (highLight.CompareTag("Lighted") && highLight != aim)
@@ -38,7 +41,7 @@ public class RayInteractionManager : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (highLight != null)
             {
@@ -62,7 +65,7 @@ public class RayInteractionManager : MonoBehaviour
     private void InteractionRay()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        if(!Physics.Raycast(ray, out var hitt, 4f))
+        if (!Physics.Raycast(ray, out var hitt, 4f))
         {
             return;
         }
@@ -70,6 +73,28 @@ public class RayInteractionManager : MonoBehaviour
         {
             _note.SetActive(true);
             Time.timeScale = 0;
+        }
+        if (hitt.collider.CompareTag("Box2"))
+        {
+            var door = hitt.collider.GetComponent<DoorController>();
+            if (door != null)
+            {
+                door?.TryOpenTreasure();
+            }
+        }
+    }
+    private void HandleItemPickup(GameObject obj)
+    {
+        var item = obj.GetComponent<ItemType>();
+        if (item == null)
+        {
+            return;
+        }
+        switch (item.itemType)
+        {
+            case ItemType.Type.Key4:
+                keyInventory.hasSecretKey = true;
+                break;
         }
     }
 }

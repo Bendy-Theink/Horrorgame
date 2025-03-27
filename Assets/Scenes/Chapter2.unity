@@ -3696,6 +3696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6788bcc18f4452f4a940bac75a04b00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyInventory: {fileID: 0}
   _note: {fileID: 222432593}
 --- !u!64 &892112765
 MeshCollider:

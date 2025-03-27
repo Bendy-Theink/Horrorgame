@@ -40,6 +40,15 @@ public class DoorController : MonoBehaviour
             StartCoroutine(OpenDoorSequnce());
         }
     }
+    public void TryOpenTreasure()
+    {
+        KeyInventory keyInventory = FindObjectOfType<KeyInventory>();
+        if (keyInventory != null && keyInventory.hasSecretKey)
+        {
+            isLooked = false;
+            StartCoroutine(OpenTreasureSequnce());
+        }
+    }
 
     private IEnumerator OpenDoorSequnce()
     {
@@ -52,6 +61,15 @@ public class DoorController : MonoBehaviour
         if(_openDoor != null)
         {
             _openDoor.SetTrigger("Open");
+        }
+    }
+    private IEnumerator OpenTreasureSequnce()
+    {
+        isLooked = false;
+        if (_hanleDoor != null)
+        {
+            yield return new WaitForSeconds(1f);
+            _hanleDoor.SetTrigger("Open");
         }
     }
     public void PlayDoorSound()

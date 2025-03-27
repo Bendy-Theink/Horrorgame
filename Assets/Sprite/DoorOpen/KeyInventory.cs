@@ -7,6 +7,7 @@ namespace KeySystem
         public bool hasRedKey = false;
         public bool hasGreenKey = false;
         public bool hasEndKey = false;
+        public bool hasSecretKey = false;
         public bool hasHanldeMusicBox = false;
     }
 }
