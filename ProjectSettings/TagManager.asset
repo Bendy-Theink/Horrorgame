@@ -16,6 +16,7 @@ TagManager:
   - Door2
   - Door1
   - Door3
+  - BoxSecret
   layers:
   - Default
   - TransparentFX
