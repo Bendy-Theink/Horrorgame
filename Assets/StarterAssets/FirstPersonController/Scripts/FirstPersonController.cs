@@ -65,8 +65,11 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
-		//fix
-		float maxClimbHeight = 0f;
+		[SerializeField] AudioSource _audioSource;
+		[SerializeField] AudioClip _audioClip;
+
+        //fix
+        float maxClimbHeight = 0f;
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -119,6 +122,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			
 		}
 
 		private void LateUpdate()
@@ -208,8 +212,10 @@ namespace StarterAssets
 			// if there is a move input rotate player when the player is moving
 			if (_input.move != Vector2.zero)
 			{
-				// move
-				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+                // move
+                _audioSource.clip = _audioClip;
+                _audioSource.Play();
+                inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 
 			// move the player

@@ -2,37 +2,66 @@ using KeySystem;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class DoorController : MonoBehaviour
 {
     [SerializeField] private Animator _hanleDoor;
     [SerializeField] private Animator _openDoor;
 
+    [SerializeField] private AudioSource _doorSound;
+    [SerializeField] private AudioClip _doorClip;
 
     public bool isLooked = true; //cua bi khoa mac dinh
 
     public void TryOpenDoor()
     {
-        if (isLooked)
+        KeyInventory keyInventory = FindObjectOfType<KeyInventory>();
+        if (keyInventory != null && keyInventory.hasRedKey)
         {
-            //kiem tra nguoi choi co chia khoa hay khong
-            KeyInventory keyInventory = FindObjectOfType<KeyInventory>();
-            if(keyInventory != null && keyInventory.hasRedKey)
-            {
-                isLooked = false;
-                StartCoroutine(OpenDoor());
-                Debug.Log("Cua da mo");
-            }
-            else
-            {
-                Debug.Log("Cua bi khoa");
-            }
+            isLooked = false;
+            StartCoroutine(OpenDoorSequnce());
         }
     }
-    private IEnumerator OpenDoor()
+    public void TryOpenDoor2()
     {
-        _hanleDoor.SetTrigger("Handle");
-        yield return new WaitForSeconds(1.5f);
-        _openDoor.SetTrigger("Open");
+        KeyInventory keyInventory = FindObjectOfType<KeyInventory>();
+        if (keyInventory != null && keyInventory.hasGreenKey)
+        {
+            isLooked = false;
+            StartCoroutine(OpenDoorSequnce());
+        }
+    }
+    public void TryOpenDoor3()
+    {
+        KeyInventory keyInventory = FindObjectOfType<KeyInventory>();
+        if (keyInventory != null && keyInventory.hasEndKey)
+        {
+            isLooked = false;
+            StartCoroutine(OpenDoorSequnce());
+        }
+    }
+
+    private IEnumerator OpenDoorSequnce()
+    {
+        isLooked = false;
+        if(_hanleDoor != null)
+        {
+            _hanleDoor.SetTrigger("Open");
+            yield return new WaitForSeconds(1f);
+        }
+        if(_openDoor != null)
+        {
+            _openDoor.SetTrigger("Open");
+        }
+    }
+    public void PlayDoorSound()
+    {
+        _doorSound.clip = _doorClip;
+        _doorSound.Play();
+    }
+    public void enddd()
+    {
+        
+        SceneManager.LoadScene(4);
     }
 }

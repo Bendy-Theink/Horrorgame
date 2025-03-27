@@ -7,6 +7,10 @@ public class MusicBoxManager : MonoBehaviour
 {
     [SerializeField] Animator _musicBox;
     [SerializeField] GameObject _handle;
+    [SerializeField] GameObject _key;
+
+    [SerializeField] AudioSource _musicBoxSound;
+    [SerializeField] AudioClip _musicBoxClip;
     public bool isLooked = true;
 
     public void TryOpenMusicBox()
@@ -18,8 +22,7 @@ public class MusicBoxManager : MonoBehaviour
             {
                 _handle.SetActive(true);
                 isLooked = false;
-                _musicBox.SetTrigger("Open");
-                _musicBox.SetTrigger("Handle");
+                StartCoroutine(OpenMusicBox());
                 Debug.Log("Music Box is opened");
             }
             else
@@ -28,12 +31,26 @@ public class MusicBoxManager : MonoBehaviour
             }
         }
     }
+    public void TryGetKey()
+    {
+            _key.SetActive(true);
+    }
 
     private IEnumerator OpenMusicBox()
     {
+        _musicBox.SetTrigger("Handle");
         yield return new WaitForSeconds(3f);
         _musicBox.SetTrigger("Open");
-        _musicBox.SetTrigger("Handle");
         Debug.Log("Music Box is opened");
+    }
+
+    public void PlayMusicBoxSound()
+    {
+        _musicBoxSound.clip = _musicBoxClip;
+        _musicBoxSound.Play();
+    }
+    public void StopMusicBoxSound()
+    {
+        _musicBoxSound.Stop();
     }
 }

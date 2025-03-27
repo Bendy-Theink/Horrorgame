@@ -21,6 +21,7 @@ public class RaycastManager : MonoBehaviour
     public GameObject interactText; //Tham chieu den game object 3DInteracText
     public KeyInventory keyInventory; //Tham chieu den KeyInventory
 
+
     // Update is called once per frame
     void Update()
     {
@@ -72,7 +73,13 @@ public class RaycastManager : MonoBehaviour
                 {
                     { itemType: ItemType.Type.Flashlight } => "Nhấn E để nhặt đèn pin",
                     {
-                        itemType: ItemType.Type.Key
+                        itemType: ItemType.Type.Key1
+                    } => "Nhấn E để nhặt chìa khóa",
+                    {
+                        itemType: ItemType.Type.Key2
+                    } => "Nhấn E để nhặt chìa khóa",
+                    {
+                        itemType: ItemType.Type.Key3
                     } => "Nhấn E để nhặt chìa khóa",
                     {
                         itemType: ItemType.Type.HandleMusicBox
@@ -111,6 +118,28 @@ public class RaycastManager : MonoBehaviour
                     }
                 }
             }
+            if(highLight != null)
+            {
+                if (highLight.CompareTag("Safe"))
+                {
+                    SafeController safe = highLight.GetComponent<SafeController>();
+                    if (safe != null)
+                    {
+                        safe.ToggleSafeUI();
+                    }
+                }
+            }
+            if (highLight != null)
+            {
+                if (highLight.CompareTag("Treasure"))
+                {
+                    PassWork passWork = highLight.GetComponent<PassWork>();
+                    if (passWork != null)
+                    {
+                        passWork.ToggleSafeUI();
+                    }
+                }
+            }
             HandleInteraction();
         }
         if (Input.GetKeyDown(KeyCode.R) && _note.activeSelf)
@@ -136,7 +165,19 @@ public class RaycastManager : MonoBehaviour
         {
             Debug.Log("Khong co ghi chu");
         }
-        if(hitInfor.collider.CompareTag("Door"))
+        if(hitInfor.collider.CompareTag("Box"))
+        {
+            var musicBox = hitInfor.collider.GetComponent<MusicBoxManager>();
+            if (musicBox != null)
+            {
+                musicBox?.TryOpenMusicBox();
+            }
+        }
+        else
+        {
+            Debug.Log("Khong co hop nhac de mo");
+        }
+        if (hitInfor.collider.CompareTag("Door1"))
         {
             var door = hitInfor.collider.GetComponent<DoorController>();
             if (door != null)
@@ -148,7 +189,23 @@ public class RaycastManager : MonoBehaviour
         {
             Debug.Log("Khong co cua de mo");
         }
-        if(hitInfor.collider.CompareTag("Lighted"))
+        if (hitInfor.collider.CompareTag("Door2"))
+        {
+            var door = hitInfor.collider.GetComponent<DoorController>();
+            if (door != null)
+            {
+                door?.TryOpenDoor2();
+            }
+        }
+        if (hitInfor.collider.CompareTag("Door3"))
+        {
+            var door = hitInfor.collider.GetComponent<DoorController>();
+            if (door != null)
+            {
+                door?.TryOpenDoor3();
+            }
+        }
+        if (hitInfor.collider.CompareTag("Lighted"))
         {
             HandleItemPickup(hitInfor.collider.gameObject);
         }
@@ -173,8 +230,14 @@ public class RaycastManager : MonoBehaviour
             case ItemType.Type.HandleMusicBox:
                 keyInventory.hasHanldeMusicBox = true;
                 break;
-            case ItemType.Type.Key:
+            case ItemType.Type.Key1:
                 keyInventory.hasRedKey = true;
+                break;
+            case ItemType.Type.Key2:
+                keyInventory.hasGreenKey = true;
+                break;
+            case ItemType.Type.Key3:
+                keyInventory.hasEndKey = true;
                 break;
             case ItemType.Type.Other:
                 inventoryManager?.AddItem(obj);
