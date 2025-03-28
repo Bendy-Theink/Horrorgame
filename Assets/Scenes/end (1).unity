@@ -298,6 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 621133809}
+  - component: {fileID: 621133812}
   - component: {fileID: 621133808}
   - component: {fileID: 621133807}
   - component: {fileID: 621133806}
@@ -504,6 +505,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &621133812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621133805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46b8dd964fffa469a58987472a1647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1021350568
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +740,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QUIT
+  m_Text: next
 --- !u!222 &1330668123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1018,7 +1031,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2087680810}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 621133810}
+        m_TargetAssemblyTypeName: MENU, Assembly-CSharp
+        m_MethodName: nextchap2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2087680810
 MonoBehaviour:
   m_ObjectHideFlags: 0

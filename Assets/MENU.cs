@@ -22,4 +22,8 @@ public class MENU : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void nextchap2()
+    {
+        SceneManager.LoadScene(4);
+    }
 }
