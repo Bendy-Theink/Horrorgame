@@ -22,4 +22,12 @@ public class MENU : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void nextchap2()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            SceneManager.LoadScene(5);
+        }
+
+    }
 }
