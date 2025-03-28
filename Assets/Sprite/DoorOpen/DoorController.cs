@@ -66,10 +66,10 @@ public class DoorController : MonoBehaviour
     private IEnumerator OpenTreasureSequnce()
     {
         isLooked = false;
-        if (_hanleDoor != null)
+        if (_openDoor != null)
         {
             yield return new WaitForSeconds(1f);
-            _hanleDoor.SetTrigger("Open");
+            _openDoor.SetTrigger("Open");
         }
     }
     public void PlayDoorSound()

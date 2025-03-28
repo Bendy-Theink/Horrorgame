@@ -10,12 +10,15 @@ public class RayInteractionManager : MonoBehaviour
     private RaycastHit hit;
     private Transform aim;
 
+    public InventoryManager inventoryManager;
     public KeyInventory keyInventory;
     [SerializeField] private GameObject _note;
+
+    [SerializeField] Animator _picture;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        keyInventory = GetComponent<KeyInventory>();
     }
 
     // Update is called once per frame
@@ -54,6 +57,13 @@ public class RayInteractionManager : MonoBehaviour
                     }
                 }
             }
+            if(highLight != null)
+            {
+                if(highLight.CompareTag("Picture"))
+                {
+                    _picture.SetTrigger("Open");
+                }
+            }
             InteractionRay();
         }
         if (Input.GetKeyDown(KeyCode.R) && _note.activeSelf)
@@ -82,6 +92,14 @@ public class RayInteractionManager : MonoBehaviour
                 door?.TryOpenTreasure();
             }
         }
+        if (hitt.collider.CompareTag("Lighted"))
+        {
+            HandleItemPickup(hitt.collider.gameObject);
+        }
+        else
+        {
+            Debug.Log("Khong co gi de nhat");
+        }
     }
     private void HandleItemPickup(GameObject obj)
     {
@@ -95,6 +113,10 @@ public class RayInteractionManager : MonoBehaviour
             case ItemType.Type.Key4:
                 keyInventory.hasSecretKey = true;
                 break;
+            case ItemType.Type.Other:
+                inventoryManager?.AddItem(obj);
+                break;
         }
+        Destroy(obj);
     }
 }
