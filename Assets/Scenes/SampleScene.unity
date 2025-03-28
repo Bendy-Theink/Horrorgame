@@ -2812,7 +2812,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 81.65274
+=======
+      value: 81.6
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2820,7 +2824,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< HEAD
       value: 80.11992
+=======
+      value: 80.52
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4160,7 +4168,7 @@ MonoBehaviour:
   _hanleDoor: {fileID: 965627494}
   _openDoor: {fileID: 816445010}
   _doorSound: {fileID: 816445013}
-  _doorClip: {fileID: 8300000, guid: b27e5fcd5d747ab4b88545e46f682820, type: 3}
+  _doorClip: {fileID: 8300000, guid: be95d9a4da9048b46b3d980f48ef530d, type: 3}
   isLooked: 1
 --- !u!95 &816445010
 Animator:
@@ -7468,7 +7476,7 @@ MonoBehaviour:
   _hanleDoor: {fileID: 901983056}
   _openDoor: {fileID: 1021317260}
   _doorSound: {fileID: 1021317265}
-  _doorClip: {fileID: 8300000, guid: b27e5fcd5d747ab4b88545e46f682820, type: 3}
+  _doorClip: {fileID: 8300000, guid: be95d9a4da9048b46b3d980f48ef530d, type: 3}
   isLooked: 1
 --- !u!82 &1021317265
 AudioSource:
@@ -9927,7 +9935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 81.65274
+=======
+      value: 81.6
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9935,7 +9947,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< HEAD
       value: 79.93992
+=======
+      value: 80.34
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11115,7 +11131,7 @@ MonoBehaviour:
   _hanleDoor: {fileID: 1592037392}
   _openDoor: {fileID: 1545891147}
   _doorSound: {fileID: 1545891150}
-  _doorClip: {fileID: 8300000, guid: b27e5fcd5d747ab4b88545e46f682820, type: 3}
+  _doorClip: {fileID: 8300000, guid: be95d9a4da9048b46b3d980f48ef530d, type: 3}
   isLooked: 1
 --- !u!95 &1545891147
 Animator:
@@ -12853,7 +12869,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 81.65274
+=======
+      value: 81.6
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12861,7 +12881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< HEAD
       value: 79.93992
+=======
+      value: 80.34
+>>>>>>> 939cbc70d9104ec764871ff455d123c4c9a3f5d7
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalRotation.w
